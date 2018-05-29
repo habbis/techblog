@@ -195,7 +195,8 @@ The first flag is -o property=value and between argument we are going to use the
     zfs create dockpool /var/lib/docker
 
 ```
-- ### Now when the disks are ready we are going to change default storage drive on docker to zfs. 
+
+-  Now when the disks are ready we are going to change default storage drive on docker to zfs. 
 
 ```
     # First stop docker with this command
