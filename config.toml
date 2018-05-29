@@ -1,4 +1,4 @@
-baseurl = "https://uname.github.io"
+#baseurl = "https://habbis.github.io"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "Eirik's Tech Blog"
@@ -15,7 +15,7 @@ pygmentsCodefencesGuessSyntax = true
 
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
-  subtitle = "Build a beautiful and simple website in minutes"
+  subtitle = ""
   logo = "img/avatar-icon.png"
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
