@@ -4,31 +4,40 @@ date: 2018-05-14T21:03:41+02:00
 draft: false
 ---
 
-I am now trying out LXC and LXD both are cool technologies. Lxd  it is a 
-hyper-visor for lxc containers(linux containers).
+I am now trying out LXC and LXD both are cool technologies. Lxd  it is a· 
+
+hyper-visor for lxc containers(linux containers). 
 
 So why LXD/LXC?  That is a good question and it can have many answers. 
-It have benefits like being closer to the metal. And  it behaves more like a 
-virtual machine and for me it is easier understand concept behind it.  
+
+It has benefits like being closer to the metal. And it behaves more like a 
+
+virtual machine and for me it is easier understand concept behind it. 
+
 Lxd is also more like Freebsd jails and the solaris zones. 
 
-And lxd/lxc consisting of  namspaces to isolate process. And cgroups to 
-controll the resources of the  processes. 
+And lxd/lxc consisting of  namspaces to isolate process. And cgroups to· 
 
-But one may think this is a competitor to docker but in my eyes no. 
- Docker is a app containers and lxd s a system container. 
+controll the resources of the processes. 
 
-In fact you can use ubuntu,centos as system container in lxd and they will 
-operate more like a virtual machine. So docker and lxd are both super cool tech 
+But one may think this is a competitor to docker but in my eyes no.· 
+
+Docker is an app container and lxd is a system container. 
+
+In fact, you can use ubuntu, centos as system container in lxd and they will· 
+
+operate more like a virtual machine. So docker and lxd are both super cool tech· 
+
 and i use them both. I am currently trying to learn more of both container technologies. 
 
-
-
 So how do one get started with lxd the easy way is to use ubuntu. 
-But other linux distributions  also can support lxd but you must do more manual 
-setup. I am gonna consentracte on using ubuntu since that is my main linux distro. 
 
-So to install lxd to ways either use the deb binary
+But other Linux distributions also can support lxd but you must do more manual· 
+
+setup. I am going to concentrate on using ubuntu since that is my main Linux distro.  
+
+
+So, to install lxd to ways either use the deb binary 
 
 ```sudo apt install -y lxd```
 
@@ -40,21 +49,21 @@ After this use this command it the terminal with sudo permissions.
 
 ```sudo lxd init```
 
- After thath command the setup process will begin. And i am going to show how 
+ After that command the setup process will begin. And I am going to show how
  it looks like under her. 
 
-Her i say yes it is easier  this way. 
+Her I say yes it is easier  this way. 
  ```Do you want to configure a new storage pool (yes/no) [default=yes]?```
 
 Now it is time to choose the file system for storing and running containers. 
-If i can i choose zfs but one can also use the default 
+If I can I choose zfs but one can also use the default 
 file system on your disk then that is dir.
 
 ```Name of the storage backend to use (dir or zfs) [default=dir]:```
 
-If you want you can have lxd exposed over the network so you can controll it 
-with other lxd client like your laptop. I am going to show it but the default 
-is no so if you want type yes
+  If you want, you can have lxd exposed over the network, so you can control it·
+  with other lxd client like your laptop. I am going to show it but the default· 
+  is no so if you want type yes
 
 ```Would you like LXD to be available over the network (yes/no) [default=no]?```
 
@@ -122,7 +131,7 @@ To make a snapshot of the container.
 
 ```lxc snapshot youtcontainer snapshotname```
 
-This is just a little and i will write more about what you can do.
+This is a basic setup of lxd on ubuntu 16.04.
 
 ---
 
