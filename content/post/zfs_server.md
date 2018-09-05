@@ -4,7 +4,6 @@ date: 2018-05-18T10:34:11+02:00
 draft: false
 ---
 
-# Testing zfs with docker
 
 
 You are free to use this as you wish I am also using this as my own wiki to remember 
