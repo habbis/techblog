@@ -6,36 +6,41 @@ draft: false
 
 # Testing zfs with docker
 
-#### Table of content
 
-1.  [Testing zfs with docker](#Testing zfs with docker)
+You are free to use this as you wish I am also using this as my own wiki to remember 
+how to do stuff. I hope this can help other people.
 
-You are free to use this as you wish I am also using this as my own wiki to remember how to do stuff. I hope this can help other people.
+I am going to set up a [Digitalocean](https://www.digitalocean.com/) vps with 
+docker and testing out zfs as [docker](https://docs.docker.com/storage/storagedriver/zfs-driver/) storage driver.
 
-I am going to sett up a [Digitalocean](https://www.digitalocean.com/) vps with docker and testing out zfs as [docker](https://docs.docker.com/storage/storagedriver/zfs-driver/) storage driver.
-
-I am going to use ubuntu 16.04 since it have a native zfs binary.
+I am going to use Ubuntu 16.04 since it have a native zfs binary.
 
 First login on digital-ocean server via [openssh](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) via root like this:
 
 ```
     ssh root@yourip
 ```
-- Then add a user and on ubuntu you can use two diffrent commands. in these exampels I am going to create a use called youruser. Eksample one adduser is a more user friendly way you do not need to add flags but if you need read the manpage.
+- Then add a user and on ubuntu you can use two different commands. in these·
+ examples I am going to create a use called youruser. Example one adduser is a·
+ more user-friendly way you do not need to add flags but if you need read the manpage.·
 
 ```
     adduser youruser
 ```
 
-- Example two is user add and this command is  on all Linux distros and the flags will be the same. But on the other unix-like freebsd or smartos the flags is different in my experience.
-Here is with the short flags. I like to use user add with scripts since it is non interactive and therefor easier to automate.
+- Example two is user add and this command is on all Linux distros and the flags·
+ will be the same. But on the other UNIX-like FreeBSD or smartos the flags are different in my experience.·
+ Here is with the short flags. I like to use user add with scripts since it is·
+ non-interactive and therefore easier to automate.·
+
+
 
 ```
     useradd -m -s /bin/bash youruser
     useradd --create-home --shell /bin/bash youruser
 ```
 
-- To remove user and home directory use this command
+- To remove user and home directory use this command·
 
 ```
     userdel -r youruser
@@ -43,14 +48,20 @@ Here is with the short flags. I like to use user add with scripts since it is no
 
 ```
 
-- Then I use usermod utillity to change user accouts. Inn this example i am going to add a user to the sudo group.
+- Then I use usermod utility to change user accounts. In this example I am·
+ going to add a user to the sudo group.·
+
 
 ```
     usermod -a -G sudo youruser
     usermod --append --groups sudo youruser
 
 ```
-- Then I use usermod utillity to change user accouts. Inn this example i am going to add a user to the sudo group. Here in this example sudo is enabled because you see the %sudo.  If it's disabled you will se #%sudo.
+
+- Then I use usermod utility to change user accounts. In this example i am·
+ going to add a user to the sudo group. Here in this example sudo is enabled·
+ because you see the %sudo.  If it's disabled, you will see #%sudo.·
+
 
 ```
     # User privilege specification
@@ -66,14 +77,24 @@ Here is with the short flags. I like to use user add with scripts since it is no
 
     #includedir /etc/sudoers.d
 ```
+- Then after setting up the users on the system then we are going to set up the 
+ssh-keys for the user youruser. Then since we have already setup ssh-keys via digital-ocean. 
+The root user directory already has the necessary keys installed. 
+So, on a system the ssh-key is inside the .ssh directory on each user that you allow somebody to ssh into. 
+on this system  root only have ssh-key it's in the dir /root/.ssh . 
+In openssh the keys are in the file called authorized_keys in the .ssh directory. 
+Then I recommend copying the .ssh dir with all files to the home folder to /home/youruser/. 
+So, I use this command and remember there is always the alternative command.·
 
-- Then after setting up the users on the system then we are going to set up the ssh-keys for the user youruser. Then since we have already setup ssh-keys via digital-ocean. The root user directory already have the necessary keys installed. So on a system the ssh-key is inside the .ssh directory on each user that you allow somebody to ssh into. So root only have ssh-key here then in the dir /root/.ssh are the keys. In openssh the keys is in the file called authorized_keys in the .ssh directory. Then I recommend copying the .ssh dir with all files to the home folder to /home/youruser/.  So I use this command and remember there is always the alternative command. 
 
 ```
     cp -r /root/.ssh /home/youruser/
 ```
+- After you have done that then I like to make user the right permission is one 
+the files and folder in .ssh. 
+Sometimes i have failed to login to new user since the owner of the folder .ssh 
+is root. So, I set it to youruser with this command.·
 
-- After you have done that then I like to make user the right permission is one the files and folder in .ssh. Sometimes i have failed to login to new user since the owner of the folder .ssh is root. So I set it to your user with this command.
 
 ```
     chown habbis:habbis /home/youruser/.ssh
@@ -82,7 +103,9 @@ Here is with the short flags. I like to use user add with scripts since it is no
     drwx------ 2 youruser youruser 4096 Mar 14 10:14 .ssh
 ```
 
-- It is the best practice to have only root user can delete, read, write, execute with the .ssh folder on all users on a system. So we set the permissions with this command.  
+ - It is the best practice to have only root user can delete, read, write, execute with the .ssh 
+folder on all users on a system. So, we set the permissions with this command.·
+
 
 ```
     chmod 700 /home/youruser/.ssh
@@ -91,8 +114,9 @@ Here is with the short flags. I like to use user add with scripts since it is no
     # And it must not look like this
     drw-rw-rw- 2 youruser youruser 4096 Mar 14 10:14 .ssh
 ```
-
-- And on the authorized_keys file use the same command. But here to this root read, write and user read and other read. And i set the owner of the authorized_keys to root:root. So it is going to look like this. 
+ - And on the authorized_keys file uses the same command. But here to this root read, write and user read, 
+and another read. And i set the owner of the authorized_keys to root:root. 
+So, it is going to look like this.·
 
 ```
     chmod 644 /home/youruser/.ssh/authorized_keys
@@ -101,10 +125,13 @@ Here is with the short flags. I like to use user add with scripts since it is no
 ```
 
 
-- After setting up ssh then we need to start the firewall.  On Ubuntu, you have four options as i know of but all if them is iptables under the hood. They are [firehol](https://firehol.org/) , [ufw](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-14-04) , [firewalld](https://fedoraproject.org/wiki/Firewalld?rd=FirewallD) and plain old [iptables](https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands).
+ And on the authorized_keys file uses the same command. But here to this root read, write and user read, and another read. And i set the owner of the authorized_keys to root:root. So, it is going to look like this. They are [firehol](https://firehol.org/) , [ufw](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-14-04) , [firewalld](https://fedoraproject.org/wiki/Firewalld?rd=FirewallD) and plain old [iptables](https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands).
 
-- I am going to use ufw and i am going to show some commands to get started.
-We are going for the standard server way of deny incoming and allow outgoing. First allow ssh so you can connect to the server. Then do not start the firewall before you have allowed ssh. So you don't lock yourself out of the server.
+I am going to use ufw and i am going to show some commands to get started.
+We are going for the standard server way of denying incoming and allow outgoing.
+First allow ssh so you can connect to the server. 
+Then do not start the firewall before you have allowed ssh.
+So, you don't lock yourself out of the server.
 
 ```
     ufw default deny incoming
@@ -125,7 +152,7 @@ We are going for the standard server way of deny incoming and allow outgoing. Fi
 ``` 
   
 
--   Now we are going setup the disks and installing zfs and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+-   Now we are going to setup the disks and installing zfs and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
 ```
     apt install -y git zfs-initramfs apt-transport-https ca-certificates curl software-properties-common
@@ -142,7 +169,10 @@ We are going for the standard server way of deny incoming and allow outgoing. Fi
     apt update -y && apt install -y docker-ce
 ```
 
-- Now we are going to partition the disk. I am going to use the gdiks utility but you can also use fdisk utility to partition the disk so when using the zfs on Linux I use the long disk alias. Because the sdb naming may change if you add more disks. 
+- Now we are going to partition the disk. I am going to use the gdiks utility, 
+but you can also use fdisk utility to partition the disk so when using 
+the zfs on Linux I use the long disk alias. 
+Because the sdb naming may change if you add more disks.
 
 ```
     # when to partition the disk the command looks like this
@@ -153,13 +183,30 @@ We are going for the standard server way of deny incoming and allow outgoing. Fi
     /dev/disk/by-id/
      scsi-0DO_Volume_volume-fra1-02-part1
 ```
+-  Now we are going to format the disk to zfs. And when making the pool the
+command is zfs create. We are also going set so
+me flags when creating the zfs pool.·
 
-- Now we are going to format the disk to zfs. And when making the pool the command is zfs create. We are also going set some flags when creating the zfs pool.
-The first flag is -o property=value and between argument we are going to use the -O flag to perform overlay mount see mount in zfs man pages to learn more. We are going to set ashift=12 because of physical sectors size will change in the future. On the vps this setting is not that important. Then setting atime=off because atime controls whether the access timer for files is update when they are read. Turning this off avoids producing write traffic when reading files and can result in significant performance gain. And your can learn more read the zfs man pages.
+- The first flag is -o property=value and between argument we are going to use
+the -O flag to perform overlay mount see mount in zfs man pages to learn more.
+We are going to set ashift=12 because of physical sectors size will change in the future.
+On the vps this setting is not that important. Then setting atime=off because
+atime controls whether the access timer for files is update when they are read.
+Turning this off avoids producing write traffic when reading files and can
+result in significant performance gain. And you can learn more read the zfs man pages.·
 
-- The next flag we are going to use is compression=lz4 because it is a fast compression and also one of the default for zfs. And using compression saves disk space this is why zfs i also one of the best file system we have. Then use the flag normalization=formD because it eliminates some corner cases relating to UTF-8 filename normalization. So the next flag is setmountpoint=yourmount this flag says it all with its name. The last ting is not a flag but you set the name of the pool and set if you want to mirror or raidz the disks. 
+- The next flag we are going to use is compression=lz4 because it is a fast compression 
+and also one of the defaults for zfs. And using compression saves disk space 
+this is why zfs i also one of the best file systems we have. Then use the 
+flag normalization=formD because it eliminates some corner cases relating 
+to UTF-8 filename normalization. So, the next flag is setmountpoint=yourmount 
+this flag says it all with its name. The last thing is not a flag, but you set 
+the name of the pool and set if you want to mirror or raidz the disks.··
 
-- But if you say nothing then your zfs disks will bee one big storage pool with no redundancy but. If you have only had one disk then and your still can use zfs as your file system. But you miss out some features like error repairing and you can also mirror two partition on a disk with zfs. So then you can have some cool zfs repair and redundancy features
+ - But if you say nothing then your zfs disks will be one big storage pool with no redundancy but. 
+If you have only had one disk, then and you still can use zfs as your file system. 
+But you miss out some features like error repairing and you can also mirror two partition on a disk with zfs. 
+So, then you can have some cool zfs repair and redundancy features·
 
 ```
     # This how i all looks when we are ready to format the disks.
@@ -192,7 +239,7 @@ The first flag is -o property=value and between argument we are going to use the
                scsi-0DO_Volume_volume-fra1-02-part1  ONLINE       0     0     0
 
     # then we create the dataset for docker
-    zfs create dockpool /var/lib/docker
+    zfs create dockpool/docker_stor 
 
 ```
 
@@ -200,20 +247,20 @@ The first flag is -o property=value and between argument we are going to use the
 
 ```
     # First stop docker with this command
-    sytemctl stop docker
+    sytsemctl stop docker
 
     # then use this command to check status
     systemctl status docker
 
-    # Then we are going to take backup or the docker directory.
+    # Then we are going to take backup of the docker directory.
     # Then you have backup of your docker images.
-    cp -au /var/lib/docker /var/lib/docker/bk.docker
+    cp -au /var/lib/docker /var/lib/bk.docker
 
     # Then delete all file in docker dir.
     rm -rf /var/lib/docker/*
 
     # Then set the mountpoint for the zfs dataset docker.
-    zfs mountpoint=/var/lib/docker dockerpool/docker
+    zfs mountpoint=/var/lib/docker dockerpool/docker_stor
 
 ```
 
@@ -223,9 +270,9 @@ The first flag is -o property=value and between argument we are going to use the
     # i use vim to create the file.
     vim /etc/docker/daemon.json
 
-    # In the file plac dish
+    # In the file place this
     {
-      "storage-driver": "zfs"
+      "storage-driver": "zfs"
     }
 
     # Then start docker again
