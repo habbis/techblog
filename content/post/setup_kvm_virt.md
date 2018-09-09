@@ -1,7 +1,7 @@
 ---
 title: "Setup_kvm_virt"
 date: 2018-09-09T17:21:49+02:00
-draft: true
+draft: false
 ---
 
   
