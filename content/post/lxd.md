@@ -4,7 +4,7 @@ date: 2018-05-14T21:03:41+02:00
 draft: false
 ---
 
-![virt-manager](https://photos.app.goo.gl/z8A8m7nnRn9chyzQ6)
+## LXD setup
 
 I am now trying out LXC and LXD both are cool technologies. Lxd  it is a· 
 
