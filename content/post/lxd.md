@@ -4,6 +4,8 @@ date: 2018-05-14T21:03:41+02:00
 draft: false
 ---
 
+![virt-manager](https://photos.app.goo.gl/z8A8m7nnRn9chyzQ6)
+
 I am now trying out LXC and LXD both are cool technologies. Lxd  it is a· 
 
 hyper-visor for lxc containers(linux containers). 
@@ -39,73 +41,110 @@ setup. I am going to concentrate on using ubuntu since that is my main Linux dis
 
 So, to install lxd to ways either use the deb binary 
 
-```sudo apt install -y lxd```
+```
+sudo apt install -y lxd
+
+```
 
 or use.
 
-```snap install lxd```
+```
+snap install lxd
+
+```
 
 After this use this command it the terminal with sudo permissions. 
 
-```sudo lxd init```
+```
+sudo lxd init
+
+```
 
  After that command the setup process will begin. And I am going to show how
  it looks like under her. 
 
 Her I say yes it is easier  this way. 
- ```Do you want to configure a new storage pool (yes/no) [default=yes]?```
+
+ ```
+
+Do you want to configure a new storage pool (yes/no) [default=yes]?
+
+```
 
 Now it is time to choose the file system for storing and running containers. 
 If I can I choose zfs but one can also use the default 
 file system on your disk then that is dir.
 
-```Name of the storage backend to use (dir or zfs) [default=dir]:```
+```
+
+Name of the storage backend to use (dir or zfs) [default=dir]:
+
+```
 
   If you want, you can have lxd exposed over the network, so you can control it·
   with other lxd client like your laptop. I am going to show it but the default· 
   is no so if you want type yes
 
-```Would you like LXD to be available over the network (yes/no) [default=no]?```
+```
+
+Would you like LXD to be available over the network (yes/no) [default=no]?
+
+```
 
 There you can choose a specific ip address if you have more than one. 
 The default is all. 
 
-```Address to bind LXD to (not including port) [default=all]:```
+```
+Address to bind LXD to (not including port) [default=all]:
+
+```
 
 Now you can choose a port the default is port 8443 tcp.
 
-```Port to bind LXD to [default=8443]:```
+```
+Port to bind LXD to [default=8443]:
+```
 
 Now you can setup a password for connecting to this lxd client and choos a 
 good password.
 
-```Trust password for new clients: ```
+```
+Trust password for new clients: 
+```
 
 Then it is time to setup the lxd bridge so your containers can have network 
 access.
 
-```Do you want to configure the LXD bridge (yes/no) [default=yes?```
+```
+Do you want to configure the LXD bridge (yes/no) [default=yes?
+```
 Then it will prompt you trough setting up the ip4. And ip6 subnet for the 
 containers you can mostly press enter for the default are good.
 
 Then you are ready to use lxd and the last message should be.
 
-```LXD has been successfully configured.```
+```
+LXD has been successfully configured.
+```
 
-To show your running containers the command is. 
+To show your running containers the command is.
 
-```lxc list```
+```
+lxc list
+```
 
 Result if no container are running.
 
 ```
+
 +------+-------+------+------+------+-----------+ 
 | NAME | STATE | IPV4 | IPV6 | TYPE | SNAPSHOTS |
 +------+-------+------+------+------+-----------+ 
 
-```
-If a container is running it looks like this.
 
+```
+
+If a container is running it looks like this.
 ```
 +------+---------+--------------------+----------------------------------------------+------------+-----------+
 | NAME |  STATE  |        IPV4        |                     IPV6                     |    TYPE    | SNAPSHOTS |
@@ -117,21 +156,28 @@ If a container is running it looks like this.
 
 To launch a container the command is.
 
-```lxc launch ubuntu:16.04 yourcontainername```
+```
+lxc launch ubuntu:16.04 yourcontainername
+```
 
 To stop container.
 
-```lxc stop yourcontainer```
+```
+lxc stop yourcontainer
+```
 
 To list images 
 
-```lxc image list```
+```
+lxc image list
+```
 
 To make a snapshot of the container.
 
-```lxc snapshot youtcontainer snapshotname```
+```
+lxc snapshot youtcontainer snapshotname
+```
 
 This is a basic setup of lxd on ubuntu 16.04.
 
----
 

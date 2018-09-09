@@ -65,7 +65,7 @@ pygmentsCodefencesGuessSyntax = true
  # telegram = "username"
 
 [[menu.main]]
-    name = "Blog"
+    name = "Back"
     url = ""
     weight = 1
 
