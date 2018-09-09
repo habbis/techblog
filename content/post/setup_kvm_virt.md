@@ -18,14 +18,9 @@ You are free to use this I use this blog like a wiki to write things I learn.
 
   
 
-Here are some other Open Source Virtualization projects but  
-
-I am going to setup KVM. 
+Here are some other Open Source Virtualization projects.   
 
   
-
-  
-
 - KVM - Kernel-based Virtual Machine 
 
 - Xen 
@@ -34,15 +29,15 @@ I am going to setup KVM.
 
 - UML - User Mode Linux 
 
+- LXD/LXC
+
+- Docker
    
 
-Setup Linux Virtualization with KVM. 
 
-  
+What is KVM?  
 
-  
-
-What are KVM is a hypervisor built into the Linux Kernel and it  
+ KVM is a hypervisor built into the Linux Kernel and it  
 
 allows Linux desktop or server to simulate multiple piece of hardware. 
 
